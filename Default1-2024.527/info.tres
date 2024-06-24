@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MapInfo" load_steps=2 format=3 uid="uid://cac03jr0dtnga"]
+
+[ext_resource type="Script" path="res://Resources/MapInfo.gd" id="1_nssgi"]
+
+[resource]
+script = ExtResource("1_nssgi")
+name = "Default1"
+author = "dragmine"
+version = "2024.527"
+description = ""
