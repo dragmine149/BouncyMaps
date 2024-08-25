@@ -23,7 +23,7 @@ jobs:
           chmod +x ./Godot.x86_64
 
       - name: Run godot files
-        run: ./Godot.x86_64 -s generate_world.gd --w_path ${{ github.event.commits[0].message }}
+        run: ./Godot.x86_64 --headless -s generate_world.gd --w_path ${{ github.event.commits[0].message }}
 
       - name: Commit new files
         uses: EndBug/add-and-commit@v9
