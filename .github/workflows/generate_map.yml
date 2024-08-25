@@ -17,7 +17,7 @@ jobs:
 
       - name: Download and set up godot
         run: |
-#          curl https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_linux.x86_64.zip --output Godot_zip.x86_64.zip
+         # curl https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_linux.x86_64.zip --output Godot_zip.x86_64.zip
           unzip ./Godot_zip.x86_64.zip
           mv ./Godot_v4.3-stable_linux.x86_64 Godot.x86_64
           chmod +x ./Godot.x86_64
