@@ -1,0 +1,35 @@
+name: Generate map
+
+on:
+  push:
+    branches:
+      - "Community"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download godot
+        run: |
+          curl https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_linux.x86_64.zip --output Godot_zip.x86_64.zip
+          unzip ./Godot_zip.x86_64.zip
+          mv ./Godot_v4.3-stable_linux.x86_64 Godot.x86_64
+          chmod +x ./Godot.x86_64
+
+      - name: Run godot files
+        run: ./Godot.x86_64 -s generate_world.gd --w_path ${{ github.event.commits[0].message }}
+
+      - name: Commit new files
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Map Generator
+          message: "Generated community files from list"
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
