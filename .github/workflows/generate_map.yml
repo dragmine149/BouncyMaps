@@ -25,6 +25,9 @@ jobs:
       - name: Run godot files
         run: ./Godot.x86_64 --headless -s generate_world.gd --w_path ${{ github.event.commits[0].message }}
 
+      - name: Remove godot
+        run: rm ./Godot.x86_64
+
       - name: Commit new files
         uses: EndBug/add-and-commit@v9
         with:
