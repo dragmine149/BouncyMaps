@@ -42,3 +42,5 @@ jobs:
           title: Community map
           body: |
             Map ready to be verified and merged into main list
+          base: main
+          branch: Community
