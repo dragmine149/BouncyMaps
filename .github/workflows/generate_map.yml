@@ -15,9 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download godot
+      - name: Download and set up godot
         run: |
-          curl https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_linux.x86_64.zip --output Godot_zip.x86_64.zip
+#          curl https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_linux.x86_64.zip --output Godot_zip.x86_64.zip
           unzip ./Godot_zip.x86_64.zip
           mv ./Godot_v4.3-stable_linux.x86_64 Godot.x86_64
           chmod +x ./Godot.x86_64
@@ -28,11 +28,17 @@ jobs:
       - name: Remove godot
         run: rm ./Godot.x86_64
 
-      - name: Commit new files
-        uses: EndBug/add-and-commit@v9
-        with:
-          author_name: Map Generator
-          message: "Generated community files from list"
+      # - name: Commit new files
+      #   uses: EndBug/add-and-commit@v9
+      #   with:
+      #     author_name: Map Generator
+      #     message: "Generated community files from list"
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: Map ${{ github.event.commits[0].messsage }}
+          title: Community map
+          body: |
+            Map ready to be verified and merged into main list
