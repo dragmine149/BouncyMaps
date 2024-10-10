@@ -13,6 +13,17 @@ func _init() -> void:
 	generate_world_from_mscn("%s/%s.mscn" % [path, path], "%s" % path);
 
 
+static func get_file_hash(path: String) -> String:
+	var hash_context := HashingContext.new();
+	hash_context.start(HashingContext.HASH_SHA256);
+	var file := FileAccess.open(path, FileAccess.READ);
+	while file.get_position() < file.get_length():
+		var remaining := file.get_length() - file.get_position();
+		hash_context.update(file.get_buffer(min(remaining, 1024)));
+	var result := hash_context.finish();
+	return result.hex_encode();
+
+
 ## Check if a file exists and make said file if it does not exist
 ## [br]
 ## [b]file -[/b] The file to check and make
@@ -115,6 +126,8 @@ func generate_world_from_mscn(path:String, dest_folder:String) -> void:
 	quick_store_data("%s/version.txt" % dest_folder, version);
 	quick_store_bytes("%s/info.tres" % dest_folder, info);
 	quick_store_bytes("%s/world.pck" % dest_folder, world);
+	var checksum = get_file_hash("%s/world.pck" % dest_folder);
+	quick_store_data("%s/checksum.txt" % dest_folder, checksum);
 
 	quit();
 	return;
